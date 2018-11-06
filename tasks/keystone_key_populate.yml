@@ -19,6 +19,9 @@
   register: keystone_pub
   changed_when: false
 
+- name: Print ansible_play_batch
+  debug: var=ansible_play_batch
+
 - name: Register a fact for the keystone pub key
   set_fact:
      keystone_pubkey: "{{ ansible_play_batch | map('extract', hostvars, 'keystone_pub') | map(attribute='content') | map('b64decode') | join('\n') | b64encode }}"
